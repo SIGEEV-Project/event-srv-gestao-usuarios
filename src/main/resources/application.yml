@@ -1,9 +1,18 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /usuarios
+
 spring:
+  application:
+    name: event-srv-gestao-usuarios
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/sigeev
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/sigeev_usuarios
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: validate
@@ -13,11 +22,20 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: 86400000 # 24 horas
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
 
-server:
-  port: 8080
-  servlet:
-    context-path: /api/v1
+jwt:
+  secret: ${JWT_SECRET:chave-secreta-temporaria-deve-ser-substituida-em-producao}
+  expiration: ${JWT_EXPIRATION:3600000}
+  refresh-token:
+    expiration: ${JWT_REFRESH_EXPIRATION:604800000}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
