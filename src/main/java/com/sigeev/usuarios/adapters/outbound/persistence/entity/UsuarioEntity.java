@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,6 +20,7 @@ public class UsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "usuarioId", nullable = false)
     private UUID usuarioId;
 
     @Column(nullable = false, length = 50)
@@ -49,7 +50,7 @@ public class UsuarioEntity {
     @Column(length = 50)
     private String cidade;
 
-    @Column(length = 2)
+    @Column(name = "estado", columnDefinition = "bpchar(2)")
     private String estado;
 
     @Column(length = 9)
@@ -62,7 +63,7 @@ public class UsuarioEntity {
     @Column(nullable = false, length = 20)
     private String status;
 
-    @Column
+    @Column(name = "dataCadastro", columnDefinition = "timestamptz DEFAULT now()")
     private LocalDateTime dataCadastro;
 
     @Column
@@ -77,9 +78,9 @@ public class UsuarioEntity {
     @Column
     private LocalDateTime dataReativacao;
 
-    @Column
+    @Column(name = "tokenRecuperacao", columnDefinition = "text")
     private String tokenRecuperacao;
 
-    @Column
+    @Column(name = "tokenRecuperacaoExpiraEm", columnDefinition = "timestamptz")
     private LocalDateTime tokenRecuperacaoExpiraEm;
 }
