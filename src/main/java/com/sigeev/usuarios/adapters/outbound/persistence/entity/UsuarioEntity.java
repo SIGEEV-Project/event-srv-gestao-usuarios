@@ -17,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID usuarioId;
@@ -56,7 +57,7 @@ public class UsuarioEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String perfil;
+    private PerfilUsuario perfil;
 
     @Column(nullable = false, length = 20)
     private String status;
